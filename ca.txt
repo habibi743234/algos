@@ -1,0 +1,627 @@
+---------- Forwarded message ---------
+
+From: Dwiprahar Chattopadhyay <dwipraharchattopadhyay4@gmail.com>
+
+Date: Mon, May 22, 2023, 11:10 PM
+
+Subject: CA LAB COPY
+
+To: tamalkundu2002@gmail.com <tamalkundu2002@gmail.com>
+
+##AND_OR GATE INVERTER 
+
+entity And_Or is 
+
+       Port   (  A : in STD_LOGIC;
+
+                     B : in STD_LOGIC;
+
+                     C : in STD_LOGIC;
+
+                   Y : out STD_LOGIC);
+
+end And_Or;
+
+architecture Behavioural of And_Or is
+
+ begin
+
+Y<= NOT ( (A AND B) OR (C AND D) );
+
+end Behavioural;
+
+-----------------     -----------------   ----------------------   ------
+
+ 
+
+##F.A. CIRCUIT 
+
+entity FULLADDER is 
+
+       Port   (  A : in STD_LOGIC;
+
+                     B : in STD_LOGIC;
+
+                     Cin : in STD_LOGIC;
+
+                    S : out STD_LOGIC;
+
+                    Cout : out STD_LOGIC);
+
+end And_Or;
+
+architecture Behavioural of FULLADDER is
+
+begin
+
+S <= A XOR B XOR Cin ;
+
+Cout <= (A AND B) OR (Cin AND(A XOR B) );
+
+end Behavioural;
+
+____________         ____________        ___________
+
+##Binary -> Gray
+
+entity Binary_Gray is 
+
+       Port ( A : in STD_LOGIC;
+
+                     B : in STD_LOGIC;
+
+                     C : in STD_LOGIC;
+
+                     D : in STD_LOGIC;
+
+                    X1 : out STD_LOGIC;
+
+                    X2 : out STD_LOGIC;
+
+                    X3 : out STD_LOGIC;
+
+                    X4 : out STD_LOGIC);
+
+end Binary_Gray;
+
+architecture Behavioural of Binary_Gray is
+
+begin 
+
+X1 <= A;
+
+X2 <= A XOR B;
+
+X3 <= B XOR C;
+
+X4 <= C XOR D;
+
+end Behavioural;
+
+____________       ____________       ___________
+
+##gate verification (and, or, nand, nor, not)
+
+entity Gate_verification is 
+
+       Port ( A : in STD_LOGIC;
+
+                     B : in STD_LOGIC;
+
+                    X_OR : out STD_LOGIC;
+
+                    X_AND : out STD_LOGIC;
+
+                    X_NOT : out STD_LOGIC;
+
+                    X_NAND : out STD_LOGIC;
+
+                    X_NOR : out STD_LOGIC);
+
+end Binary_Gray;
+
+architecture Behavioural of Gate_verification is
+
+begin 
+
+PROCESS (A, B)
+
+BEGIN
+
+IF (A = '0' AND B = '0') THEN
+
+X_OR <= '0';
+
+X_AND <= '0';
+
+X_NAND <= '1';
+
+X_NOR <= '1';
+
+ELSIF (A = '0' AND B = '1') THEN
+
+X_OR <= '1';
+
+X_AND <= '0';
+
+X_NAND <= '1';
+
+X_NOR <= '1';
+
+ELSIF (A = '1' AND B = '0') THEN
+
+X_OR <= '1';
+
+X_AND <= '0';
+
+X_NAND <= '1';
+
+X_NOR <= '1';
+
+ELSIF (A = '1' AND B = '1') THEN
+
+X_OR <= '1';
+
+X_AND <= '1';
+
+X_NAND <= '0';
+
+X_NOR <= '0';
+
+END IF;
+
+IF (A = '0') THEN
+
+X_NOT <= '1';
+
+ELSE
+
+X_NOT <= '0';
+
+END IF;
+
+END PROCESS;
+
+END BEHAVIOURAL;
+
+____________         ____________        ___________
+
+## 8×1 MUX
+
+entity MUX_8_1 is 
+
+       Port ( D0, D1, D2, D3, D4, D5, D6, D7 : in STD_LOGIC;
+
+                     A : in STD_LOGIC;
+
+                     B : in STD_LOGIC;
+
+                     C : in STD_LOGIC;
+
+                     Y : out STD_LOGIC);
+
+end MUX_8_1;
+
+architecture Behavioural of MUX_8_1 is
+
+begin
+
+PROCESS (A, B, C)
+
+VARIABLE CH: STD_LOGIC_VECTOR (2 DOWNTO 0);
+
+BEGIN
+
+CH := A & B & C;
+
+CASE CH IS 
+
+        WHEN "000" => Y <= D0;
+
+        WHEN "001" => Y <= D1;
+
+        WHEN "010" => Y <= D2;
+
+        WHEN "011" => Y <= D3;
+
+        WHEN "100" => Y <= D4;
+
+        WHEN "101" => Y <= D5;
+
+        WHEN "110" => Y <= D6;
+
+        WHEN OTHERS => Y <= D7;
+
+END CASE;
+
+END PROCESS;
+
+____________        ____________       ___________
+
+##D FF
+
+entity D_flipflop is 
+
+       Port ( CLK : in STD_LOGIC;
+
+                     D : in STD_LOGIC;
+
+                     Q : out STD_LOGIC;
+
+                     Q_BAR : out STD_LOGIC);
+
+end D_flipflop;
+
+architecture Behavioural of D_flipflop is
+
+  
+
+begin
+
+PROCESS (CLK,D)
+
+BEGIN
+
+IF(CLK’ event AND CLK = ’1′) THEN
+
+Q <= D;
+
+Q_BAR <= (NOT D);
+
+END IF;
+
+END PROCESS;
+
+end Behavioural;
+
+____________         ____________        ___________
+
+##JK FF
+
+entity j_k_flip_flop is 
+
+       Port ( RESET : in STD_LOGIC;
+
+                     CLK : in STD_LOGIC;
+
+                     J : in STD_LOGIC;
+
+                     K : in STD_LOGIC;
+
+                     Q : out STD_LOGIC;
+
+                     Q_BAR : out STD_LOGIC);
+
+end j_k_flip_flop;
+
+architecture Behavioural of j_k_flip_flop is
+
+begin
+
+PROCESS(RESET,CLK,J,K)
+
+VARIABLE MEM : STD_LOGIC;
+
+BEGIN
+
+IF(RESET='1') THEN
+
+ Q <= '0';
+
+ Q_BAR <= '1';
+
+ELSIF (RISING_EDGE(CLK) ) THEN
+
+ IF(J/=K) THEN
+
+  Q <= J;
+
+  Q_BAR <= NOT J;
+
+ ELSIF(J = '1' and K = '1') THEN
+
+  Q <= NOT J;
+
+  Q_BAR <= J;
+
+ END IF;
+
+END IF;
+
+END PROCESS;
+
+end Behavioral;
+
+____________         ____________        ___________
+
+##SR FF
+
+entity SR_FF is
+
+PORT( S,R,CLOCK: in std_logic;
+
+Q, QBAR: out std_logic);
+
+end SR_FF;
+
+ 
+
+Architecture behavioral of SR_FF is
+
+begin
+
+PROCESS(CLOCK)
+
+variable tmp: std_logic;
+
+begin
+
+if(CLOCK='1' and CLOCK'EVENT) then
+
+if(S='0' and R='0')then
+
+tmp:=tmp;
+
+elsif(S='1' and R='1')then
+
+tmp:='Z';
+
+elsif(S='0' and R='1')then
+
+tmp:='0';
+
+else
+
+tmp:='1';
+
+end if;
+
+end if;
+
+Q <= tmp;
+
+QBAR <= not tmp;
+
+end PROCESS;
+
+end behavioral;
+
+____________         ____________        ___________
+
+##T FF
+
+entity T_FF is
+
+port( T: in std_logic;
+
+Clock: in std_logic;
+
+Q: out std_logic);
+
+end T_FF;
+
+ 
+
+architecture Behavioral of T_FF is
+
+signal tmp: std_logic;
+
+begin
+
+process (Clock)
+
+begin
+
+if Clock'event and Clock='1' then
+
+ 
+
+if T='0' then
+
+tmp <= tmp;
+
+elsif T='1' then
+
+tmp <= not (tmp);
+
+end if;
+
+end if;
+
+end process;
+
+Q <= tmp;
+
+end Behavioral;
+
+____________         ____________        ___________
+
+##4 BIT MAGNITUDE USING BEHAVIOURAL
+
+entity mag_comp_4b is
+
+  port (
+
+    a, b : in std_logic_vector(3 downto 0); -- inputs
+
+    ag, bg, eq : out std_logic); -- ag if a > b, bg if b > a, eq if a=b
+
+end mag_comp_4b;
+
+architecture behav of mag_comp_4b is
+
+begin
+
+ process (a,b)
+
+  begin
+
+   if (a > b) then
+
+    ag <= '1';
+
+    bg <= '0';
+
+    eq <= '0';
+
+   elsif (b > a) then
+
+    ag <= '0';
+
+    bg <= '1';
+
+    eq <= '0';
+
+   else
+
+    ag <= '0';
+
+    bg <= '0';
+
+    eq <= '1';
+
+   end if;
+
+  end process;
+
+end behav;
+
+____________       ____________        ___________
+
+##4 BIT MAGNITUDE USING DATA FLOW
+
+entity mag_comp_4b is
+
+  port (
+
+    a, b : in std_logic_vector(3 downto 0); -- inputs
+
+    ag, bg, eq : out std_logic); -- ag if a > b, bg if b > a, eq if a=b
+
+end mag_comp_4b;
+
+architecture Dataflow of mag_comp_4b is
+
+signal s : std_logic_vector(3 downto 0); -- intermediate signal
+
+begin 
+
+s(0)<= a(0) xnor b(0);
+
+s(1)<= a(1) xnor b(1);
+
+s(2)<= a(2) xnor b(2);
+
+s(3)<= a(3) xnor b(3);
+
+eq<=s(3) and s(2) and s(1) and s(0);
+
+ag<=(a(3) and (not b(3))) or
+
+    (s(3) and a(2) and (not b(2))) or
+
+    (s(3) and s(2) and a(1)and (not b(1))) or
+
+    (s(3) and s(2) and s(1) and a(0) and (not b(0)));
+
+bg<=(b(3) and (not a(3))) or
+
+    (s(3) and b(2) and (not a(2)))or
+
+    (s(3) and s(2) and b(1)and (not a(1))) or
+
+    (s(3) and s(2) and s(1) and b(0) and (not a(0)));
+
+end Dataflow;
+
+____________         ____________        ___________
+
+##4×1 USING 2×1
+
+entity MUX_4_1 is 
+
+       Port ( I0 : in STD_LOGIC;
+
+                     I1 : in STD_LOGIC;
+
+                     I2 : in STD_LOGIC;
+
+                     I3 : in STD_LOGIC;
+
+                     S0 : in STD_LOGIC;
+
+                     S1 : in STD_LOGIC;
+
+                    Y : out STD_LOGIC);
+
+end MUX_4_1;
+
+architecture Behavioural of MUX_4_1 is
+
+component MUX_2_1 is
+
+          Port ( P : in STD_LOGIC;
+
+                     Q : in STD_LOGIC;
+
+                     R : in STD_LOGIC;
+
+                     O : out STD_LOGIC;
+
+end component;
+
+SIGNAL R0, R1 : STD_LOGIC;
+
+begin
+
+L1 : MUX_2_1 PORT MAP (I0, I1, S0, R0);
+
+L2 : MUX_2_1 PORT MAP (I2, I3, S0, R1);
+
+L3 : MUX_2_1 PORT MAP (R0, R1, S1, Y);
+
+end Behavioral
+
+____________       ____________      ___________
+
+##pipo shift register 
+
+entity pipo is 
+
+       Port ( I0 : in STD_LOGIC;
+
+                     I1 : in STD_LOGIC;
+
+                     I2 : in STD_LOGIC;
+
+                     I3 : in STD_LOGIC;
+
+                     CLK : in STD_LOGIC;
+
+                    Q1 : out STD_LOGIC);
+
+                    Q2 : out STD_LOGIC);
+
+                    Q3 : out STD_LOGIC);
+
+end pipo;
+
+architecture Structural of pipo is
+
+component pipo_Shift is
+
+          Port (input, CLK : in STD_LOGIC;
+
+                     OUTPUT : out STD_LOGIC);
+
+end component ;
+
+begin
+
+L1: pipo_Shift port map(I1, CLK, Q1);
+
+L2: pipo_Shift port map(I2, CLK, Q2);
+
+L3: pipo_Shift port map(I3, CLK, Q3);
+
+end Structural;
